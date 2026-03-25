@@ -41,11 +41,13 @@ description: 处理客户表格并生成Logo墙PPT的自动化工具。当用户
 
 使用 `scripts/download_logos.py` 自动下载 Logo。
 
-**关键配置**：
-- 浏览器路径：`/Applications/Google Chrome.app/Contents/MacOS/Google Chrome`
-- Node路径：`/Users/I501579/.workbuddy/binaries/node/versions/22.12.0/bin/node`
-- Node模块：`/Users/I501579/.workbuddy/binaries/node/workspace/node_modules`
+**关键配置**（根据你的环境修改）：
+- 浏览器路径：`/Applications/Google Chrome.app/Contents/MacOS/Google Chrome`（或系统 Chrome 路径）
+- Node路径：`<你的Node路径>/bin/node`
+- Node模块：`<你的Node路径>/workspace/node_modules`
 - playwright 需用上述 Node 环境执行
+
+> 💡 快速获取路径：`which node` 和 `npm root -g`
 
 **搜索策略**（按优先级）：
 1. 百度图片搜索：`{公司中文名} {英文名} logo`
@@ -75,16 +77,19 @@ description: 处理客户表格并生成Logo墙PPT的自动化工具。当用户
 ## 快速运行
 
 ```bash
+# 设置环境变量（根据你的实际路径修改）
+export NODE_PATH="<你的Node模块路径>"
+export NODE_BIN="<你的Node可执行文件路径>"
+export AGENT_BROWSER="<你的agent-browser路径>"
+
 # 1. 下载 Logo（用 Node + playwright）
-NODE_PATH=/Users/I501579/.workbuddy/binaries/node/workspace/node_modules \
-  /Users/I501579/.workbuddy/binaries/node/versions/22.12.0/bin/node \
-  scripts/download_logos.js <输出目录> <公司列表JSON>
+$NODE_BIN scripts/download_logos.js --output <输出目录> --companies <公司列表JSON>
 
 # 2. 核验 Logo
-/usr/bin/python3 scripts/verify_logos.py --logos-dir <logo目录> --companies-json <公司列表JSON>
+python3 scripts/verify_logos.py --logos-dir <logo目录> --companies <公司列表JSON>
 
 # 3. 生成 PPT
-/usr/bin/python3 scripts/build_ppt.py --logos-dir <logo目录> --companies-json <公司列表JSON> --output <输出路径>
+python3 scripts/build_ppt.py --logos-dir <logo目录> --companies <公司列表JSON> --output <输出路径>
 ```
 
 ## 脚本说明

@@ -42,7 +42,7 @@ try:
 except ImportError:
     TESSERACT_AVAILABLE = False
 
-AGENT_BROWSER = '/Users/I501579/.workbuddy/binaries/node/versions/22.12.0/bin/agent-browser'
+AGENT_BROWSER = os.environ.get('AGENT_BROWSER', 'agent-browser')  # 可通过环境变量指定路径
 SSL_CTX = ssl.create_default_context()
 SSL_CTX.check_hostname = False
 SSL_CTX.verify_mode = ssl.CERT_NONE
